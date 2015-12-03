@@ -30,3 +30,12 @@
 
 "Form Processing"
 [ "s-s"  `5000 ] 'value-for-key' define
+
+"Environment Variables"
+[ "s-s"  `5001 ] 'get-environment-value' define
+
+
+"CGI"
+[ "s-"  'Content-type: ' print println cr ] 'content-type' define
+[ "-s"  'PATH_INFO' get-environment-value ] '*PATH_INFO' define
+

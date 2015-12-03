@@ -136,6 +136,10 @@ def opcodes(slice, offset, opcode):
         key = slice_to_string(stack_pop())
         value = form.getvalue(key, "(no)")
         stack_push(string_to_slice(value), TYPE_STRING)
+    elif opcode == 5001:
+        key = slice_to_string(stack_pop())
+        value = os.getenv(key, "(no)")
+        stack_push(string_to_slice(value), TYPE_STRING)
     return offset
 
 

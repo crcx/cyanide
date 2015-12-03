@@ -112,6 +112,12 @@ Return the requested argument.
 
 Given a key for an HTML form element, return the corresponding value.
 
+### get-environment-value
+
+    string<key> - string<value>
+
+Given a key for an environment element, return the corresponding value.
+
 ## Example
 
     'Content-type: text/html' println cr
@@ -120,6 +126,7 @@ Given a key for an HTML form element, return the corresponding value.
     [ 'You passed a request for post ' + 'post' value-for-key + ]
     [ 'No request was detected' ] if
     println
+
 
 ## Notes
 
