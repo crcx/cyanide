@@ -127,6 +127,13 @@ Given a key for an environment element, return the corresponding value.
     [ 'No request was detected' ] if
     println
 
+### content-type
+
+    string -
+
+### PATH-INFO
+
+    - string
 
 ## Notes
 
