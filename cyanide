@@ -1716,6 +1716,8 @@ bootstrap.append(""" [ "s-s"  `5001 ] 'get-environment-value' define """)
 bootstrap.append(""" "CGI" """)
 bootstrap.append(""" [ "s-"  'Content-type: ' print println cr ] 'content-type' define """)
 bootstrap.append(""" [ "-s"  'PATH_INFO' get-environment-value ] 'PATH_INFO' define """)
+bootstrap.append(""" [ "-f"  PATH_INFO '(no)' = ] '-path?' define """)
+bootstrap.append(""" [ "s-f" PATH_INFO = ] 'path?' define """)
 
 import sys, os
 import cgi
