@@ -38,5 +38,5 @@
 "CGI"
 [ "s-"  'Content-type: ' print println cr ] 'content-type' define
 [ "-s"  'PATH_INFO' get-environment-value ] 'PATH_INFO' define
-[ "-f"  PATH_INFO '(no)' = ] '-path?' define
-[ "s-f" PATH_INFO = ] 'path?' define
+[ "-f"  PATH_INFO '(no)' eq? ] '-path?' define
+[ "s-f" PATH_INFO eq? ] 'path?' define
