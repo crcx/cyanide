@@ -40,3 +40,31 @@
 [ "-s"  'PATH_INFO' get-environment-value ] 'PATH_INFO' define
 [ "-f"  PATH_INFO '(no)' eq? ] '-path?' define
 [ "s-f" PATH_INFO eq? ] 'path?' define
+
+
+"General Structure"
+[ [ '<html>' ] dip invoke '</html>' ] 'html' define
+[ [ '<head>' ] dip invoke '</head>' ] 'head' define
+[ [ '<body>' ] dip invoke '</body>' ] 'body' define
+[ [ '<span>' ] dip invoke '</span>' ] 'span' define
+[ [ '<div>' ] dip invoke '</div>' ] 'div' define
+[ [ '<p>' ] dip invoke '</p>' ] 'p' define
+
+
+"Metadata"
+[ [ '<title>' ] dip invoke '</title>' ] 'title' define
+
+
+"CSS"
+[ [ '<link rel="stylesheet" href="' ] dip invoke '"/>' ] 'stylesheet' define
+
+"JavaScript"
+
+
+"Content Formatting"
+[ [ '<h1>' ] dip invoke '</h1>' ] 'h1' define
+[ [ '<h2>' ] dip invoke '</h2>' ] 'h2' define
+[ [ '<h3>' ] dip invoke '</h3>' ] 'h3' define
+[ [ '<h4>' ] dip invoke '</h4>' ] 'h4' define
+[ [ '<em>' ] dip invoke '</em>' ] 'em' define
+[ [ '<strong>' ] dip invoke '</strong>' ] 'strong' define

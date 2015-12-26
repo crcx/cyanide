@@ -1,139 +1,160 @@
 # Cyanide
 
-## Overview
+Cyanide is an interface for Parable. It expands the core language with I/O functionality, CGI support, and programmatic HTML generation.
 
-Cyanide is a new interface layer for Parable. It is intended to be used for command line scripting and CGI based applications.
+## Basic I/O
 
-## Setup
+### Output
 
-Copy *cyanide* into your path.
-
-To rebuild *cyanide* you will need:
-
-* Python 2.x
-* parable.py
-* stdlib.p
-
-Copy *parable.py* and *stdlib.p* to this directory. Run the *convert.py* script to get a new *cyanide* script.
-
-## Functions
-
-In addition to the standard Parable functions, *Cyanide* adds the following:
-
-### print
+#### print
 
     value -
 
-Display a value
+Display a value to the standard output.
 
-### cr
+#### cr
 
     -
 
-Display a newline (\n or ASCII 10) character
+Display a newline. Effectively the same as:
 
-### open-file
+    10 :c print
 
-    string<name> string<mode> - file
+#### open-file
 
-Open a file and return a file identifier. Valid modes are:
+    string<name> string<mode> - file-id
 
-__todo__
+Open a file and return a file identifier. Valid file modes are:
 
-### close-file
+**TODO**
 
-    file -
+#### close-file
+
+    file-id -
 
 Close an open file.
 
-### read-file
+#### read-file
 
-    file - character
+    file-id - character
+    
+Read a single character from a file.
 
-Read a character from a file.
+#### write-file
 
-### write-file
-
-    character file -
+    character file-id -
 
 Write a character to a file.
 
-### file-position
+#### file-position
 
-    file - number<size>
+    file-id - number
 
 Return the current location within a file.
 
-### file-seek
+#### file-seek
 
-    number<offset> file -
+    number file-id -
 
-Move the internal pointer to a new location within a file.
+Move the current location within a file to the specified location.
 
-### file-size
+#### file-size
 
     string<name> - number
 
 Return the size of a file.
 
-### delete-file
+#### delete-file
 
     string<name> -
 
 Delete a file.
 
-### slurp-file
+#### slurp-file
 
     string<name> - string<contents>
 
-Open a file, read its contents into a string, and close the file.
+Read the contents of a file into a slice and return a pointer to them.
 
-### file-exists?
+#### file-exists?
 
     string<name> - flag
 
-Given a filename, return **true** if the file exists or **false** if it does not.
+Return **true** if the file exists or **false** otherwise.
 
-### arg-count
+#### arg-count
 
     - number
 
 Return the number of arguments passed to the script.
 
-### get-arg
+#### get-arg
 
     number - string
 
 Return the requested argument.
 
-### value-for-key
+## CGI
+
+#### value-for-key
 
     string<key> - string<value>
 
-Given a key for an HTML form element, return the corresponding value.
+Given a key for an HTML form element, return the corresponding value. If no value exists, return a string: *'(no)'*
 
-### get-environment-value
-
-    string<key> - string<value>
-
-Given a key for an environment element, return the corresponding value.
-
-## Example
-
-    'Content-type: text/html' println cr
-
-    'post' value-for-key '(no)' =
-    [ 'You passed a request for post ' + 'post' value-for-key + ]
-    [ 'No request was detected' ] if
-    println
-
-### content-type
+#### content-type
 
     string -
 
-### PATH-INFO
+#### PATH-INFO
 
     - string
 
-## Notes
+## Generating HTML
 
+Cyanide provides a variety of functions for creating HTML.
+
+Example:
+
+    [ \
+      [ \
+        [ "Head Begins" \
+          [ 'Test Page' ] title \
+          [ 'filename.css' ] stylesheet \
+        ] head \
+        [ "Body Begins" \
+          [ 'Test Page' ] h1 \
+          [ 'This is a paragraph.' ] p \
+          [ 'This is a longer paragraph ' [ 'with some ' ] strong [ 'formatted text' ] em ] p \
+        ] body \
+      ] html \
+    ] build-string
+
+These are grouped into broad categories:
+
+### General Structure
+
+* html
+* head
+* body
+* span
+* div
+* p
+
+### Metadata
+
+* stylesheet
+* title
+* author
+* copyright
+* generator
+
+### Formatting
+
+* css
+* h1
+* h2
+* h3
+* h4
+* em
+* strong
