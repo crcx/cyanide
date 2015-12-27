@@ -67,7 +67,7 @@
 [ [ '<script>' ] dip invoke '</script>' ] 'script' define
 
 "Links"
-[ '<a href="{v}">{v}</a>' ] 'link' define
+[ '<a href="{v}">{v}</a>' interpolate ] 'link' define
 
 "Content Formatting"
 [ [ '<h1>' ] dip invoke '</h1>' ] 'h1' define
