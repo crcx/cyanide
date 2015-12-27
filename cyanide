@@ -272,6 +272,13 @@ def interpret(slice, more=None):
                         a = slice_to_string(a)
                         b = slice_to_string(b)
                         stack_push(string_to_slice(b + a), TYPE_STRING)
+                    elif x == TYPE_POINTER and y == TYPE_POINTER:
+                        c = request_slice()
+                        d = get_last_index(b) + get_last_index(a) + 1
+                        set_slice_last_index(c, d)
+                        p_slices[c] = p_slices[b][:] + p_slices[a][:]
+                        p_types[c] = p_types[b][:] + p_types[a][:]
+                        stack_push(c, TYPE_POINTER)
                     else:
                         stack_push(a + b, TYPE_NUMBER)
                 else:
@@ -1695,9 +1702,16 @@ bootstrap.append(""" [ "q-" *Offset [ *Done [ *Tests [ to *Tests false to *Done 
 bootstrap.append(""" } """)
 bootstrap.append(""" [ '*Source'  '*Value'  '*Target'  'extract'  'next-piece' ] { """)
 bootstrap.append(""" [ "n-"  [ *Source 0 ] dip subslice :s ] 'extract' define """)
-bootstrap.append(""" [ "n-"  *Source swap 1 + over length? subslice :s to *Source ] 'next-piece' define """)
+bootstrap.append(""" [ "n-"  *Source swap *Value length? + over length? subslice :s to *Source ] 'next-piece' define """)
 bootstrap.append(""" [ "ss-p" :s to *Value to *Source request-empty to *Target [ *Source *Value find dup -1 -eq? [ [ extract *Target push ] sip next-piece true ] [ drop *Source *Target push false ] if ] while-true *Target   ] 'split' define """)
 bootstrap.append(""" [ "pv-s" :s to *Value reverse '' [ :s + *Value + ] reduce "This leaves the join value appended to the string. Remove it." 0 over length? *Value length? - subslice rest :s   ] 'join' define """)
+bootstrap.append(""" } """)
+bootstrap.append(""" [ "s-s"  [ :n 32 128 between? ] filter :s ] 'clean-string' define """)
+bootstrap.append(""" [ "sss-s"  [ split ] dip join clean-string ] 'replace' define """)
+bootstrap.append(""" [ '*Data'  '*Source'  '*String'  '(accumulate)'  '(next)' ] { """)
+bootstrap.append(""" [ "-"  *String *Source first *Data first :s + + to *String ] '(accumulate)' define """)
+bootstrap.append(""" [ "-"  *Source rest to *Source  *Data rest to *Data ] '(next)' define """)
+bootstrap.append(""" [ "ps-s" '{v}' split to *Source to *Data request-empty :s to *String *Data length? [ (accumulate) (next) ] times "Merge any remaining items" *String *Source ' ' join + clean-string   ] 'interpolate' define """)
 bootstrap.append(""" } """)
 bootstrap.append(""" "apropos" """)
 bootstrap.append(""" [ "s-s" dup function-exists? [ lookup-function @ ] [ drop 'function not found' report-error ] if ] 'apropos' define """)
@@ -1730,6 +1744,25 @@ bootstrap.append(""" [ "s-"  'Content-type: ' print println cr ] 'content-type' 
 bootstrap.append(""" [ "-s"  'PATH_INFO' get-environment-value ] 'PATH_INFO' define """)
 bootstrap.append(""" [ "-f"  PATH_INFO '(no)' eq? ] '-path?' define """)
 bootstrap.append(""" [ "s-f" PATH_INFO eq? ] 'path?' define """)
+bootstrap.append(""" "General Structure" """)
+bootstrap.append(""" [ [ '<html>' ] dip invoke '</html>' ] 'html' define """)
+bootstrap.append(""" [ [ '<head>' ] dip invoke '</head>' ] 'head' define """)
+bootstrap.append(""" [ [ '<body>' ] dip invoke '</body>' ] 'body' define """)
+bootstrap.append(""" [ [ '<span>' ] dip invoke '</span>' ] 'span' define """)
+bootstrap.append(""" [ [ '<div>' ] dip invoke '</div>' ] 'div' define """)
+bootstrap.append(""" [ [ '<p>' ] dip invoke '</p>' ] 'p' define """)
+bootstrap.append(""" "Metadata" """)
+bootstrap.append(""" [ [ '<title>' ] dip invoke '</title>' ] 'title' define """)
+bootstrap.append(""" "CSS" """)
+bootstrap.append(""" [ [ '<link rel="stylesheet" href="' ] dip invoke '"/>' ] 'stylesheet' define """)
+bootstrap.append(""" "JavaScript" """)
+bootstrap.append(""" "Content Formatting" """)
+bootstrap.append(""" [ [ '<h1>' ] dip invoke '</h1>' ] 'h1' define """)
+bootstrap.append(""" [ [ '<h2>' ] dip invoke '</h2>' ] 'h2' define """)
+bootstrap.append(""" [ [ '<h3>' ] dip invoke '</h3>' ] 'h3' define """)
+bootstrap.append(""" [ [ '<h4>' ] dip invoke '</h4>' ] 'h4' define """)
+bootstrap.append(""" [ [ '<em>' ] dip invoke '</em>' ] 'em' define """)
+bootstrap.append(""" [ [ '<strong>' ] dip invoke '</strong>' ] 'strong' define """)
 
 import sys, os
 import cgi
