@@ -46,9 +46,21 @@
 [ [ '<html>' ] dip invoke '</html>' ] 'html' define
 [ [ '<head>' ] dip invoke '</head>' ] 'head' define
 [ [ '<body>' ] dip invoke '</body>' ] 'body' define
+[ [ '<html>' ] dip invoke '</html>' ] 'html' define
+[ [ '<head>' ] dip invoke '</head>' ] 'head' define
+[ [ '<body>' ] dip invoke '</body>' ] 'body' define
+
 [ [ '<span>' ] dip invoke '</span>' ] 'span' define
+[ [ '<span class="{v}">' interpolate ] dip invoke '</span>' ] 'span:class' define
+[ [ '<span id="{v}">' interpolate ] dip invoke '</span>' ] 'span:id' define
+
 [ [ '<div>' ] dip invoke '</div>' ] 'div' define
+[ [ '<div class="{v}">' interpolate ] dip invoke '</div>' ] 'div:class' define
+[ [ '<div id="{v}">' interpolate ] dip invoke '</div>' ] 'div:id' define
+
 [ [ '<p>' ] dip invoke '</p>' ] 'p' define
+[ [ '<p class="{v}">' interpolate ] dip invoke '</p>' ] 'p:class' define
+[ [ '<p id="{v}">' interpolate ] dip invoke '</p>' ] 'p:id' define
 
 
 "Metadata"
