@@ -20,6 +20,8 @@ Display a newline. Effectively the same as:
 
     10 :c print
 
+### File Operations
+
 #### open-file
 
     string<name> string<mode> - file-id
@@ -94,7 +96,7 @@ Return the number of arguments passed to the script.
 
 Return the requested argument.
 
-## CGI
+### CGI
 
 #### value-for-key
 
@@ -110,7 +112,7 @@ Given a key for an HTML form element, return the corresponding value. If no valu
 
     - string
 
-## Generating HTML
+### Generating HTML
 
 Cyanide provides a variety of functions for creating HTML.
 
@@ -132,29 +134,56 @@ Example:
 
 These are grouped into broad categories:
 
-### General Structure
+#### General Structure
 
 * html
 * head
 * body
-* span
 * div
-* p
+* div:class
+* div:id
+* span
+* span:class
+* span:id
 
-### Metadata
+#### Metadata
 
-* stylesheet
 * title
-* author
-* copyright
-* generator
 
-### Formatting
+#### CSS
 
 * css
+* stylesheet
+
+#### Formatting
+
 * h1
 * h2
 * h3
 * h4
 * em
 * strong
+* p
+* p:class
+* p:id
+* pre
+* pre:class
+* pre:id
+* code
+* code:class
+* code:id
+* hr
+
+#### Links
+
+* link
+
+    [ 'url'  'descriptive' ] link
+
+#### Scripting
+
+* script
+
+# TODO -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+
+* external script reference
