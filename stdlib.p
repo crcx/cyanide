@@ -293,7 +293,7 @@
 
 [ '*Source'  '*Value'  '*Target'  'extract'  'next-piece' ] {
   [ "n-"  [ *Source 0 ] dip subslice :s ] 'extract' define
-  [ "n-"  *Source swap 1 + over length? subslice :s to *Source ] 'next-piece' define
+  [ "n-"  *Source swap *Value length? + over length? subslice :s to *Source ] 'next-piece' define
 
   [ "ss-p" \
     :s to *Value \
@@ -312,6 +312,25 @@
     "This leaves the join value appended to the string. Remove it." \
     0 over length? *Value length? - subslice rest :s \
   ] 'join' define
+}
+
+[ "s-s"  [ :n 32 128 between? ] filter :s ] 'clean-string' define
+
+[ "sss-s"  [ split ] dip join clean-string ] 'replace' define
+
+
+[ '*Data'  '*Source'  '*String'  '(accumulate)'  '(next)' ] {
+  [ "-"  *String *Source first *Data first :s + + to *String ] '(accumulate)' define
+  [ "-"  *Source rest to *Source  *Data rest to *Data ] '(next)' define
+
+  [ "ps-s" \
+    '{v}' split to *Source \
+    to *Data \
+    request-empty :s to *String \
+    *Data length? [ (accumulate) (next) ] times \
+    "Merge any remaining items" \
+    *String *Source ' ' join + clean-string \
+  ] 'interpolate' define
 }
 
 
